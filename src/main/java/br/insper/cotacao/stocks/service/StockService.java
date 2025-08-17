@@ -27,6 +27,13 @@ public class StockService {
                 .map(StockDTO::fromModel)
                 .toList();
     }
+    public List<StockDTO> listAll(String teste) {
+        return stockRepository.findAll()
+                .stream()
+                .map(StockDTO::fromModel)
+                .toList();
+    }
+
 
     public void delete(Integer id) {
         if (!stockRepository.existsById(id)) {
