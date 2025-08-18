@@ -36,7 +36,8 @@ public class StockControllerTest {
     }
 
     @Test
-    public void test_listAllShouldReturnOneStock() throws Exception {
+    public void teste_listAllShouldReturnOneStock() throws Exception{
+
 
         StockDTO stockDTO = new StockDTO(
                 1,
@@ -45,7 +46,8 @@ public class StockControllerTest {
                 (float) 100.0,
                 LocalDate.now(),
                 LocalDate.now(),
-                null);
+                null
+        );
 
         Mockito.when(stockService.listAll())
                 .thenReturn(List.of(stockDTO));
@@ -54,14 +56,10 @@ public class StockControllerTest {
                 MockMvcRequestBuilders.get("/stocks")
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
+
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker")
                         .value("PETR"));
 
     }
-
-
-
-
-
 
 }
