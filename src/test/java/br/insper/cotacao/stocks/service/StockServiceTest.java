@@ -69,6 +69,7 @@ public class StockServiceTest {
         Assertions.assertThrows(StockNotFoundException.class
                 , () -> stockService.delete(1));
 
+
     }
 
 
