@@ -21,46 +21,31 @@ import java.util.List;
 public class StockControllerTest {
 
     @InjectMocks
-    public StockController stockController;
+    public StockController controller;
 
     @Mock
-    public StockService stockService;
+    public StockService service;
 
     public MockMvc mockMvc;
 
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders
-                .standaloneSetup(stockController)
+                .standaloneSetup(controller)
                 .build();
     }
 
     @Test
     public void test_listAllShouldReturnOneStock() throws Exception {
-
         StockDTO stockDTO = new StockDTO(
-                1,
-                "PETR",
-                "Petrobras",
-                (float) 100.0,
-                LocalDate.now(),
-                LocalDate.now(),
-                null);
+                1, "PETR", "Petrobras", 100.0f, LocalDate.now(), LocalDate.now(), null
+        );
 
-        Mockito.when(stockService.listAll())
-                .thenReturn(List.of(stockDTO));
-
+        Mockito.when(service.listAll()).thenReturn(List.of(stockDTO));
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/stocks")
-        )
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker")
-                        .value("PETR"));
-
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker").value("PETR"));
     }
-
-
-
-
 
 }
