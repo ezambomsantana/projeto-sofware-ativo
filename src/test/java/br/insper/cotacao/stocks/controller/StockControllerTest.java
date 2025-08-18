@@ -38,6 +38,7 @@ public class StockControllerTest {
     @Test
     public void teste_listAllShouldReturnOneStock() throws Exception{
 
+
         StockDTO stockDTO = new StockDTO(
                 1,
                 "PETR",
@@ -55,8 +56,10 @@ public class StockControllerTest {
                 MockMvcRequestBuilders.get("/stocks")
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker").value("PETR"));
-    }
 
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker")
+                        .value("PETR"));
+
+    }
 
 }
