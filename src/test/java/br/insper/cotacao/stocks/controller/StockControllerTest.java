@@ -58,9 +58,4 @@ public class StockControllerTest {
                         .value("PETR"));
 
     }
-
-
-
-
-
 }
