@@ -19,6 +19,7 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class StockControllerTest {
+
     @InjectMocks
     public StockController controller;
 
@@ -46,4 +47,5 @@ public class StockControllerTest {
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].ticker").value("PETR"));
     }
+
 }
