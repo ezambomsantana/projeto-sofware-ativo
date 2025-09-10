@@ -42,6 +42,7 @@ public class StockControllerTest {
                 1,
                 "PETR",
                 "Petrobras",
+                "descricao",
                 (float) 100.0,
                 LocalDate.now(),
                 LocalDate.now(),

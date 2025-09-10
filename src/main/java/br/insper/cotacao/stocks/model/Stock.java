@@ -14,6 +14,7 @@ public class Stock {
 
     private String ticker;
     private String name;
+    private String description;
     private Float lastValue;
     private LocalDate dateLastValue;
     private LocalDate dateRegister;
@@ -26,6 +27,7 @@ public class Stock {
         stock.setId(dto.id());
         stock.setTicker(dto.ticker());
         stock.setName(dto.name());
+        stock.setDescription(dto.description());
         stock.setLastValue(dto.lastValue());
         stock.setDateLastValue(dto.dateLastValue());
         stock.setDateRegister(dto.dateRegister());
@@ -40,6 +42,14 @@ public class Stock {
         }
 
         return stock;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getId() {
