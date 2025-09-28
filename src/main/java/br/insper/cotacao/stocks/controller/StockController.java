@@ -1,6 +1,7 @@
 package br.insper.cotacao.stocks.controller;
 
 import br.insper.cotacao.stocks.dto.StockDTO;
+import br.insper.cotacao.stocks.service.Movimentacao;
 import br.insper.cotacao.stocks.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,11 @@ public class StockController {
     @GetMapping("/{ticker}")
     public StockDTO getByTicker(@PathVariable String ticker) {
         return stockService.getByTicker(ticker);
+    }
+
+    @GetMapping("/{ticker}/movimentacao")
+    public List<Movimentacao> getMovimentacoesByTicker(@PathVariable String ticker) {
+        return stockService.listMovimentacao(ticker);
     }
 
     @DeleteMapping("/{id}")

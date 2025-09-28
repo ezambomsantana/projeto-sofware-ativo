@@ -18,6 +18,9 @@ public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private MovimentacaoService movimentacaoService;
+
     public StockDTO create(StockDTO dto) {
         Stock stock = Stock.fromDTO(dto);
         stock.setDateLastValue(LocalDate.now());
@@ -44,5 +47,15 @@ public class StockService {
         Stock stock = stockRepository.findByTicker(ticker)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return StockDTO.fromModel(stock);
+    }
+
+    public List<Movimentacao> listMovimentacao(String ticker) {
+
+        List<Movimentacao> movimentacaos = movimentacaoService.getMovimetacoes();
+        return movimentacaos
+                        .stream()
+                        .filter(m -> m.getTicker().equals(ticker))
+                        .toList();
+
     }
 }
