@@ -12,6 +12,7 @@ public class StockHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "stock_val")
     private Float stockValue;
     private LocalDate dateValue;
 

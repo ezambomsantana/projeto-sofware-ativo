@@ -33,13 +33,6 @@ public class StockService {
                 .toList();
     }
 
-    public List<StockDTO> listAll2() {
-        return stockRepository.findAll()
-                .stream()
-                .map(StockDTO::fromModel)
-                .toList();
-    }
-
     public void delete(Integer id) {
         if (!stockRepository.existsById(id)) {
             throw new StockNotFoundException("Stock not found");
