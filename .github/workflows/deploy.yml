@@ -54,4 +54,8 @@ jobs:
           script: |
             docker stop stocks
             docker rm --force stocks
-            docker run -d -p 8080:8080 -e spring_profiles_active=teste --network=rede --name stocks ezambomsantana/stocks-ci:${{ github.sha }}
+            docker run -d -p 8080:8080 \
+              -e spring_profiles_active=teste \
+              -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
+              --network=rede --name stocks \
+              ezambomsantana/stocks-ci:${{ github.sha }}
