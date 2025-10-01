@@ -58,6 +58,6 @@ jobs:
               -e spring_profiles_active=teste \
               -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
               -e MYSQL_HOST=mysql \
-              -e MOVIMENTACAO_URL=http://15.228.236.37:8081
+              -e MOVIMENTACAO_URL=http://15.228.236.37:8081 \
               --network=rede --name stocks \
               ezambomsantana/stocks-ci:${{ github.sha }}
