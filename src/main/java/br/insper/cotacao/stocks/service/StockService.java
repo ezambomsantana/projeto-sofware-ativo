@@ -49,9 +49,9 @@ public class StockService {
         return StockDTO.fromModel(stock);
     }
 
-    public List<Movimentacao> listMovimentacao(String ticker) {
+    public List<Movimentacao> listMovimentacao(String token, String ticker) {
 
-        List<Movimentacao> movimentacaos = movimentacaoService.getMovimetacoes();
+        List<Movimentacao> movimentacaos = movimentacaoService.getMovimetacoes(token);
         return movimentacaos
                         .stream()
                         .filter(m -> m.getTicker().equals(ticker))
