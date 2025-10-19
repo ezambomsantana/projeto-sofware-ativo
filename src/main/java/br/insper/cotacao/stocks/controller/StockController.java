@@ -33,7 +33,8 @@ public class StockController {
     }
 
     @GetMapping("/{ticker}/movimentacao")
-    public List<Movimentacao> getMovimentacoesByTicker(@RequestHeader(name = "Authorization") String token, @PathVariable String ticker) {
+    public List<Movimentacao> getMovimentacoesByTicker(@RequestHeader(name = "Authorization") String token,
+                                                       @PathVariable String ticker) {
         return stockService.listMovimentacao(token, ticker);
     }
 

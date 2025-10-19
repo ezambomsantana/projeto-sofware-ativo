@@ -17,11 +17,11 @@ public class MovimentacaoService {
     @Value("${movimentacao.url}")
     private String movimentacaoUrl;
 
-    public List<Movimentacao> getMovimetacoes(String token) {
+    public List<Movimentacao>   getMovimetacoes(String token) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + token);
+        headers.set("Authorization", token);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
