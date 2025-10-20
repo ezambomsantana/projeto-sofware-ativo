@@ -17,6 +17,7 @@ public class Stock {
     private String description;
     @Column(name = "last_val")
     private Float lastValue;
+    private String createdBy;
     private LocalDate dateLastValue;
     private LocalDate dateRegister;
 
@@ -107,5 +108,13 @@ public class Stock {
 
     public void setStockHistory(List<StockHistory> stockHistory) {
         this.stockHistory = stockHistory;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }

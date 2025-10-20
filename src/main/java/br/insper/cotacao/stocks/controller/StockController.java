@@ -5,7 +5,10 @@ import br.insper.cotacao.stocks.service.Movimentacao;
 import br.insper.cotacao.stocks.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,8 +21,16 @@ public class StockController {
     private StockService stockService;
 
     @PostMapping
-    public StockDTO create(@RequestBody StockDTO dto) {
-        return stockService.create(dto);
+    public StockDTO create(@AuthenticationPrincipal Jwt jwt, @RequestBody StockDTO dto) {
+
+        String email = jwt.getClaimAsString("https://stocks-insper.com/email");
+        List<String> roles = jwt.getClaimAsStringList("https://stocks-insper.com/roles");
+
+        if (!roles.contains("ADMIN")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        return stockService.create(dto, email);
     }
 
     @GetMapping
