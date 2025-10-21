@@ -78,6 +78,7 @@ public class StockService {
         stock.setLastValue(editStockDTO.lastValue());
         stock.setDateLastValue(LocalDate.now());
         stock = stockRepository.save(stock);
+        stockCacheService.delete(ticker);
         return StockDTO.fromModel(stock);
     }
 }
