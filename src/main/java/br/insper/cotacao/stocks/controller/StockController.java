@@ -1,5 +1,6 @@
 package br.insper.cotacao.stocks.controller;
 
+import br.insper.cotacao.stocks.dto.EditStockDTO;
 import br.insper.cotacao.stocks.dto.StockDTO;
 import br.insper.cotacao.stocks.service.Movimentacao;
 import br.insper.cotacao.stocks.service.StockService;
@@ -22,15 +23,19 @@ public class StockController {
 
     @PostMapping
     public StockDTO create(@AuthenticationPrincipal Jwt jwt, @RequestBody StockDTO dto) {
+       // String email = jwt.getClaimAsString("https://stocks-insper.com/email");
+     //   List<String> roles = jwt.getClaimAsStringList("https://stocks-insper.com/roles");
 
-        String email = jwt.getClaimAsString("https://stocks-insper.com/email");
-        List<String> roles = jwt.getClaimAsStringList("https://stocks-insper.com/roles");
-
-        if (!roles.contains("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
-
+      //  if (!roles.contains("ADMIN")) {
+      //      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+//}
+        String email = null;
         return stockService.create(dto, email);
+    }
+
+    @PutMapping("/{ticker}")
+    public StockDTO changeValue(@PathVariable String ticker, @RequestBody EditStockDTO editStockDTO) {
+        return stockService.changeValue(ticker, editStockDTO);
     }
 
     @GetMapping

@@ -21,7 +21,7 @@ public class Stock {
     private LocalDate dateLastValue;
     private LocalDate dateRegister;
 
-    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StockHistory> stockHistory;
 
     public static Stock fromDTO(StockDTO dto) {
@@ -33,15 +33,6 @@ public class Stock {
         stock.setLastValue(dto.lastValue());
         stock.setDateLastValue(dto.dateLastValue());
         stock.setDateRegister(dto.dateRegister());
-
-        if (dto.stockHistory() != null) {
-            stock.setStockHistory(
-                    dto.stockHistory().stream()
-                            .map(StockHistory::fromDTO)
-                            .peek(history -> history.setStock(stock))
-                            .toList()
-            );
-        }
 
         return stock;
     }

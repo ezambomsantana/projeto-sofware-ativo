@@ -13,8 +13,7 @@ public record StockDTO(
         String createdBy,
         Float lastValue,
         LocalDate dateLastValue,
-        LocalDate dateRegister,
-        List<StockHistoryDTO> stockHistory
+        LocalDate dateRegister
 ) {
 
     public static StockDTO fromModel(Stock stock) {
@@ -26,10 +25,7 @@ public record StockDTO(
                 stock.getCreatedBy(),
                 stock.getLastValue(),
                 stock.getDateLastValue(),
-                stock.getDateRegister(),
-                stock.getStockHistory() != null
-                        ? stock.getStockHistory().stream().map(StockHistoryDTO::fromModel).toList()
-                        : null
+                stock.getDateRegister()
         );
     }
 }
