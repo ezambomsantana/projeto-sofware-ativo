@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -48,11 +49,20 @@ public class StockService {
         stockRepository.deleteById(id);
     }
 
+    private HashMap<String, StockDTO> cache = new HashMap<>();
+
     public StockDTO getByTicker(String ticker) {
+
+        if (cache.containsKey(ticker)) {
+            return cache.get(ticker);
+        }
 
         Stock stock = stockRepository.findByTicker(ticker)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return StockDTO.fromModel(stock);
+
+        StockDTO stockDTO = StockDTO.fromModel(stock);
+        cache.put(ticker, stockDTO);
+        return stockDTO;
     }
 /**
     public StockDTO getByTicker(String ticker) {
@@ -82,6 +92,7 @@ public class StockService {
         stock.setLastValue(editStockDTO.lastValue());
         stock.setDateLastValue(LocalDate.now());
         stock = stockRepository.save(stock);
+        cache.remove(ticker);
         return StockDTO.fromModel(stock);
     }
 }
