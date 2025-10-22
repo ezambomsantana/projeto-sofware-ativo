@@ -50,6 +50,13 @@ public class StockService {
 
     public StockDTO getByTicker(String ticker) {
 
+        Stock stock = stockRepository.findByTicker(ticker)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return StockDTO.fromModel(stock);
+    }
+/**
+    public StockDTO getByTicker(String ticker) {
+
         StockDTO stockDTO = stockCacheService.getByTicker(ticker);
         if (stockDTO == null) {
             Stock stock = stockRepository.findByTicker(ticker)
@@ -58,10 +65,7 @@ public class StockService {
             stockCacheService.save(stockDTO);
         }
         return stockDTO;
-
-
-
-    }
+    }*/
 
     public List<Movimentacao> listMovimentacao(String token, String ticker) {
         List<Movimentacao> movimentacaos = movimentacaoService.getMovimetacoes(token);
@@ -78,7 +82,6 @@ public class StockService {
         stock.setLastValue(editStockDTO.lastValue());
         stock.setDateLastValue(LocalDate.now());
         stock = stockRepository.save(stock);
-        stockCacheService.delete(ticker);
         return StockDTO.fromModel(stock);
     }
 }
