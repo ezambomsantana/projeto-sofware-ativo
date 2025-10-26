@@ -1,4 +1,4 @@
-package br.insper.cotacao.stocks.service;
+package br.insper.cotacao.stocks.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

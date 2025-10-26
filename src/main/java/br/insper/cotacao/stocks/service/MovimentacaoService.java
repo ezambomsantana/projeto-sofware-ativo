@@ -1,5 +1,6 @@
 package br.insper.cotacao.stocks.service;
 
+import br.insper.cotacao.stocks.dto.Movimentacao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -13,11 +14,10 @@ import java.util.List;
 @Service
 public class MovimentacaoService {
 
-
     @Value("${movimentacao.url}")
     private String movimentacaoUrl;
 
-    public List<Movimentacao>   getMovimetacoes(String token) {
+    public List<Movimentacao> getMovimentacoes(String token) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

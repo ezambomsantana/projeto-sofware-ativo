@@ -1,6 +1,7 @@
 package br.insper.cotacao.stocks.service;
 
 import br.insper.cotacao.stocks.dto.EditStockDTO;
+import br.insper.cotacao.stocks.dto.Movimentacao;
 import br.insper.cotacao.stocks.dto.StockDTO;
 import br.insper.cotacao.stocks.exception.StockNotFoundException;
 import br.insper.cotacao.stocks.model.Stock;
@@ -78,7 +79,7 @@ public class StockService {
     }*/
 
     public List<Movimentacao> listMovimentacao(String token, String ticker) {
-        List<Movimentacao> movimentacaos = movimentacaoService.getMovimetacoes(token);
+        List<Movimentacao> movimentacaos = movimentacaoService.getMovimentacoes(token);
         return movimentacaos
                         .stream()
                         .filter(m -> m.getTicker().equals(ticker))

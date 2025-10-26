@@ -2,14 +2,12 @@ package br.insper.cotacao.stocks.controller;
 
 import br.insper.cotacao.stocks.dto.EditStockDTO;
 import br.insper.cotacao.stocks.dto.StockDTO;
-import br.insper.cotacao.stocks.service.Movimentacao;
+import br.insper.cotacao.stocks.dto.Movimentacao;
 import br.insper.cotacao.stocks.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 

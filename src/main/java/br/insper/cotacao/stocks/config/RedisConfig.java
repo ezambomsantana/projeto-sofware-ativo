@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -15,13 +16,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    @Bean
+    @Bean(name = "stockRedisTemplate")
     public RedisTemplate<String, StockDTO> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, StockDTO> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules(); // registra JavaTimeModule, parameter names, etc. (bom para records e LocalDate)
+        mapper.findAndRegisterModules();
 
         Jackson2JsonRedisSerializer<StockDTO> serializer = new Jackson2JsonRedisSerializer<>(StockDTO.class);
         serializer.setObjectMapper(mapper);
@@ -33,9 +34,28 @@ public class RedisConfig {
 
         template.setValueSerializer(serializer);
         template.setHashValueSerializer(serializer);
-
-        // opcional: define serializer default também
         template.setDefaultSerializer(serializer);
+
+        template.afterPropertiesSet();
+        return template;
+    }
+
+
+    @Bean(name = "integerRedisTemplate")
+    public RedisTemplate<String, Integer> integerRedisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Integer> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+
+        StringRedisSerializer keySerializer = new StringRedisSerializer();
+
+        GenericToStringSerializer<Integer> valueSerializer = new GenericToStringSerializer<>(Integer.class);
+
+        template.setKeySerializer(keySerializer);
+        template.setHashKeySerializer(keySerializer);
+
+        template.setValueSerializer(valueSerializer);
+        template.setHashValueSerializer(valueSerializer);
+        template.setDefaultSerializer(valueSerializer);
 
         template.afterPropertiesSet();
         return template;

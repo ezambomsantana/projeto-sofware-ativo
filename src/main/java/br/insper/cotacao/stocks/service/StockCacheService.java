@@ -2,6 +2,7 @@ package br.insper.cotacao.stocks.service;
 
 import br.insper.cotacao.stocks.dto.StockDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.time.Duration;
 @Service
 public class StockCacheService {
 
+    @Qualifier("stockRedisTemplate")
     @Autowired
     private RedisTemplate<String, StockDTO> redisTemplate;
     private static final Duration TTL = Duration.ofMinutes(10);
