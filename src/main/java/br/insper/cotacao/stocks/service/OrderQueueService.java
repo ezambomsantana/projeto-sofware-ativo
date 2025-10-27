@@ -38,6 +38,9 @@ public class OrderQueueService {
                 System.out.println("Processando order" + orderId);
                 Order order = orderRepository.findById(Integer.parseInt(orderId)).get();
                 try {
+
+                    //processamento
+
                     order.setStatus(Order.OrderStatus.COMPLETED);
                     orderRepository.save(order);
                 } catch (Exception e) {

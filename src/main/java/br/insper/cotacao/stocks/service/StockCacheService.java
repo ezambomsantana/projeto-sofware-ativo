@@ -13,7 +13,8 @@ public class StockCacheService {
 
     @Autowired
     private RedisTemplate<String, StockDTO> redisTemplate;
-    private static final Duration TTL = Duration.ofMinutes(10);
+
+    private static final Duration TTL = Duration.ofSeconds(10);
 
     private String keyByTicker(String ticker) {
         return "stock:ticker:" + ticker;

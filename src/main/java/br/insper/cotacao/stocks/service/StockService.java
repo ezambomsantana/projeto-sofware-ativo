@@ -49,7 +49,7 @@ public class StockService {
         }
         stockRepository.deleteById(id);
     }
-
+/*
     private HashMap<String, StockDTO> cache = new HashMap<>();
 
     public StockDTO getByTicker(String ticker) {
@@ -66,7 +66,9 @@ public class StockService {
         return stockDTO;
     }
 
-/**
+    */
+
+
     public StockDTO getByTicker(String ticker) {
 
         StockDTO stockDTO = stockCacheService.getByTicker(ticker);
@@ -78,7 +80,6 @@ public class StockService {
         }
         return stockDTO;
     }
- */
 
     public List<Movimentacao> listMovimentacao(String token, String ticker) {
         List<Movimentacao> movimentacaos = movimentacaoService.getMovimentacoes(token);
@@ -95,7 +96,7 @@ public class StockService {
         stock.setLastValue(editStockDTO.lastValue());
         stock.setDateLastValue(LocalDate.now());
         stock = stockRepository.save(stock);
-        cache.remove(ticker);
+        stockCacheService.delete(ticker);
         return StockDTO.fromModel(stock);
     }
 }
