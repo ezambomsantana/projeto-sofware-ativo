@@ -20,9 +20,8 @@ public class OrderService {
     @Autowired
     private StockService stockService;
 
-    @Qualifier("integerRedisTemplate")
     @Autowired
-    private RedisTemplate<String, Integer> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     public Order createOrder(Order order) {
         StockDTO stock = stockService.getByTicker(order.getTicker());
@@ -30,7 +29,7 @@ public class OrderService {
         order.setValue(stock.lastValue() * order.getNumber());
 
         order = orderRepository.save(order);
-        redisTemplate.opsForList().rightPush(QUEUE_KEY, order.getId());
+        redisTemplate.opsForList().rightPush(QUEUE_KEY, String.valueOf(order.getId()));
         return order;
     }
 

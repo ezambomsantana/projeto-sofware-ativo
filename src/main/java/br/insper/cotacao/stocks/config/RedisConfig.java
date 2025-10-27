@@ -16,7 +16,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    @Bean(name = "stockRedisTemplate")
+    @Bean
     public RedisTemplate<String, StockDTO> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, StockDTO> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
@@ -40,24 +40,4 @@ public class RedisConfig {
         return template;
     }
 
-
-    @Bean(name = "integerRedisTemplate")
-    public RedisTemplate<String, Integer> integerRedisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Integer> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-
-        StringRedisSerializer keySerializer = new StringRedisSerializer();
-
-        GenericToStringSerializer<Integer> valueSerializer = new GenericToStringSerializer<>(Integer.class);
-
-        template.setKeySerializer(keySerializer);
-        template.setHashKeySerializer(keySerializer);
-
-        template.setValueSerializer(valueSerializer);
-        template.setHashValueSerializer(valueSerializer);
-        template.setDefaultSerializer(valueSerializer);
-
-        template.afterPropertiesSet();
-        return template;
-    }
 }

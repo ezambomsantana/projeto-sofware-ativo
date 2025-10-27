@@ -11,7 +11,6 @@ import java.time.Duration;
 @Service
 public class StockCacheService {
 
-    @Qualifier("stockRedisTemplate")
     @Autowired
     private RedisTemplate<String, StockDTO> redisTemplate;
     private static final Duration TTL = Duration.ofMinutes(10);

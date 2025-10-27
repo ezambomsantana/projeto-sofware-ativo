@@ -14,9 +14,8 @@ import java.time.Duration;
 @Component
 public class OrderQueueService {
 
-    @Qualifier("integerRedisTemplate")
     @Autowired
-    private RedisTemplate<String, Integer> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -33,11 +32,11 @@ public class OrderQueueService {
     private void processQueue() {
         while (running) {
 
-            Integer orderId = redisTemplate.opsForList().rightPop(QUEUE_KEY, Duration.ofSeconds(5));
+            String orderId = redisTemplate.opsForList().rightPop(QUEUE_KEY, Duration.ofSeconds(5));
             if (orderId != null) {
 
                 System.out.println("Processando order" + orderId);
-                Order order = orderRepository.findById(orderId).get();
+                Order order = orderRepository.findById(Integer.parseInt(orderId)).get();
                 try {
                     order.setStatus(Order.OrderStatus.COMPLETED);
                     orderRepository.save(order);
