@@ -10,12 +10,12 @@ Para rodar o mongo
 
 
 ```
-docker run -p 27017:27017 -d --name=mongo mongo
+docker run -p 27017:27017 -d --network=rede --name=mongo mongo
 ```
 
 Para rodar o redis
 
 
 ```
-docker run -p 6379:6379 -d --name=redis redis
+docker run -p 6379:6379 -d --network=rede --name=redis redis
 ```

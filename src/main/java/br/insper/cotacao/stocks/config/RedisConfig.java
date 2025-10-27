@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -21,7 +22,7 @@ public class RedisConfig {
         template.setConnectionFactory(connectionFactory);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules(); // registra JavaTimeModule, parameter names, etc. (bom para records e LocalDate)
+        mapper.findAndRegisterModules();
 
         Jackson2JsonRedisSerializer<StockDTO> serializer = new Jackson2JsonRedisSerializer<>(StockDTO.class);
         serializer.setObjectMapper(mapper);
@@ -33,11 +34,10 @@ public class RedisConfig {
 
         template.setValueSerializer(serializer);
         template.setHashValueSerializer(serializer);
-
-        // opcional: define serializer default também
         template.setDefaultSerializer(serializer);
 
         template.afterPropertiesSet();
         return template;
     }
+
 }

@@ -2,6 +2,7 @@ package br.insper.cotacao.stocks.service;
 
 import br.insper.cotacao.stocks.dto.StockDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
