@@ -52,7 +52,6 @@ public class StockService {
 
     private HashMap<String, StockDTO> cache = new HashMap<>();
 
-    /**
     public StockDTO getByTicker(String ticker) {
 
         if (cache.containsKey(ticker)) {
@@ -65,7 +64,9 @@ public class StockService {
         StockDTO stockDTO = StockDTO.fromModel(stock);
         cache.put(ticker, stockDTO);
         return stockDTO;
-    }*/
+    }
+
+/**
     public StockDTO getByTicker(String ticker) {
 
         StockDTO stockDTO = stockCacheService.getByTicker(ticker);
@@ -77,6 +78,7 @@ public class StockService {
         }
         return stockDTO;
     }
+ */
 
     public List<Movimentacao> listMovimentacao(String token, String ticker) {
         List<Movimentacao> movimentacaos = movimentacaoService.getMovimentacoes(token);

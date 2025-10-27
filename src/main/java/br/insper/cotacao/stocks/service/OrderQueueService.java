@@ -32,7 +32,7 @@ public class OrderQueueService {
     private void processQueue() {
         while (running) {
 
-            String orderId = redisTemplate.opsForList().rightPop(QUEUE_KEY, Duration.ofSeconds(5));
+            String orderId = redisTemplate.opsForList().leftPop(QUEUE_KEY, Duration.ofSeconds(5));
             if (orderId != null) {
 
                 System.out.println("Processando order" + orderId);
