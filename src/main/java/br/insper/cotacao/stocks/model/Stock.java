@@ -14,11 +14,14 @@ public class Stock {
 
     private String ticker;
     private String name;
+    private String description;
+    @Column(name = "last_val")
     private Float lastValue;
+    private String createdBy;
     private LocalDate dateLastValue;
     private LocalDate dateRegister;
 
-    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StockHistory> stockHistory;
 
     public static Stock fromDTO(StockDTO dto) {
@@ -26,20 +29,20 @@ public class Stock {
         stock.setId(dto.id());
         stock.setTicker(dto.ticker());
         stock.setName(dto.name());
+        stock.setDescription(dto.description());
         stock.setLastValue(dto.lastValue());
         stock.setDateLastValue(dto.dateLastValue());
         stock.setDateRegister(dto.dateRegister());
 
-        if (dto.stockHistory() != null) {
-            stock.setStockHistory(
-                    dto.stockHistory().stream()
-                            .map(StockHistory::fromDTO)
-                            .peek(history -> history.setStock(stock))
-                            .toList()
-            );
-        }
-
         return stock;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getId() {
@@ -96,5 +99,13 @@ public class Stock {
 
     public void setStockHistory(List<StockHistory> stockHistory) {
         this.stockHistory = stockHistory;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }

@@ -9,10 +9,11 @@ public record StockDTO(
         Integer id,
         String ticker,
         String name,
+        String description,
+        String createdBy,
         Float lastValue,
         LocalDate dateLastValue,
-        LocalDate dateRegister,
-        List<StockHistoryDTO> stockHistory
+        LocalDate dateRegister
 ) {
 
     public static StockDTO fromModel(Stock stock) {
@@ -20,12 +21,11 @@ public record StockDTO(
                 stock.getId(),
                 stock.getTicker(),
                 stock.getName(),
+                stock.getDescription(),
+                stock.getCreatedBy(),
                 stock.getLastValue(),
                 stock.getDateLastValue(),
-                stock.getDateRegister(),
-                stock.getStockHistory() != null
-                        ? stock.getStockHistory().stream().map(StockHistoryDTO::fromModel).toList()
-                        : null
+                stock.getDateRegister()
         );
     }
 }
