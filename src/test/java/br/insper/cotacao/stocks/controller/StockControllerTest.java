@@ -43,10 +43,10 @@ public class StockControllerTest {
                 "PETR",
                 "Petrobras",
                 "descricao",
+                "teste",
                 (float) 100.0,
                 LocalDate.now(),
-                LocalDate.now(),
-                null);
+                LocalDate.now());
 
         Mockito.when(stockService.listAll())
                 .thenReturn(List.of(stockDTO));
